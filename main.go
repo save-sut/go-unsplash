@@ -21,7 +21,7 @@ func Ping(c *gin.Context) {
 
 func GetAllPhoto(c *gin.Context) {
 	dbKey := os.Getenv("MY_JSONBOX_KEY")
-	cl, _ := jsonbox.NewClient("https://jsonbox.io/")
+	cl, _ := jsonbox.NewClient("https://jsonbox-tyroz.herokuapp.com/")
 
 	out, err := cl.Read(dbKey)
 	if err != nil {
@@ -49,7 +49,7 @@ func AddPhoto(c *gin.Context) {
 	}
 
 	dbKey := os.Getenv("MY_JSONBOX_KEY")
-	cl, _ := jsonbox.NewClient("https://jsonbox.io/")
+	cl, _ := jsonbox.NewClient("https://jsonbox-tyroz.herokuapp.com/")
 	urlObj := []byte(`{"label": "` + label + `", "url": "` + url + `"}`)
 	out, _ := cl.Create(dbKey, urlObj)
 	if out == nil {
@@ -65,7 +65,7 @@ func Search(c *gin.Context) {
 	keyword := c.Param("keyword")
 
 	dbKey := os.Getenv("MY_JSONBOX_KEY")
-	cl, _ := jsonbox.NewClient("https://jsonbox.io/")
+	cl, _ := jsonbox.NewClient("https://jsonbox-tyroz.herokuapp.com/")
 	out, err := cl.Read(``+dbKey+`?q=label:`+keyword+``)
 	if err != nil {
 		panic(err)
@@ -83,7 +83,7 @@ func RemoveById(c *gin.Context) {
 	photoId := c.PostForm("photo_id")
 
 	dbKey := os.Getenv("MY_JSONBOX_KEY")
-	cl, _ := jsonbox.NewClient("https://jsonbox.io/")
+	cl, _ := jsonbox.NewClient("https://jsonbox-tyroz.herokuapp.com/")
 
 	if password != "" && password == "password" {
 		err := cl.Delete(dbKey, photoId)
@@ -103,7 +103,7 @@ func ClearDB(c *gin.Context) {
 	password := c.Param("password")
 
 	dbKey := os.Getenv("MY_JSONBOX_KEY")
-	cl, _ := jsonbox.NewClient("https://jsonbox.io/")
+	cl, _ := jsonbox.NewClient("https://jsonbox-tyroz.herokuapp.com/")
 
 	if password != "" && password == "save-sut" {
 		err := cl.DeleteAll(dbKey)
